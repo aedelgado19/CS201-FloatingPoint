@@ -3,7 +3,7 @@
    This program implements an IEEE floating point parser
    for an arbitrary number of bit settings.
    
-   Last updated: May 9, 2021
+   Last updated: May 10, 2021
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,8 +11,8 @@
 #include <stdbool.h>
 #include <math.h>
 
-bool checkBounds(int amount, int fracBits, int expBits);
-void convert(int fracBits, int expBits, char* hexNum);
+bool checkBounds(int fracBits, int expBits);
+void convert(int fracBits, int expBits, int hexNum);
 
 int
 main(int argc, char* argv[]){
@@ -20,13 +20,24 @@ main(int argc, char* argv[]){
   int expBits = 0;
   int hexNum = 0;
 
+  //program takes in 3 arguments and an a.out = 4 arguments  
+  if(argc != 4){
+    printf("ERROR: you didn't enter the right amount of arguments.\n");
+    printf("Here are the three arguments: \n"); 
+    printf("1. number of fraction bits (between 2 and 10)\n");
+    printf("2. number of exponent bits (between 3 and 5)\n");
+    printf("3. the hexadecimal representation of your number.\n");
+    printf("Quitting program.\n");
+    exit(1);
+  }
+
   //scan in arguments
   sscanf(argv[1], "%d", &fracBits);
   sscanf(argv[2], "%d", &expBits);
   sscanf(argv[3], "%x", &hexNum);
   
   //check validity
-  bool valid = checkBounds(argc, fracBits, expBits);
+  bool valid = checkBounds(fracBits, expBits);
   if(valid == false){
     exit(1);
   }
@@ -37,22 +48,12 @@ main(int argc, char* argv[]){
   return 0;
 }
 
-/* checkBounds() takes in the amount of arguments
-   and the arguments in order to check validity.
+/* checkBounds() takes in the arguments
+   in order to check validity.
    Returns true if valid, false if invalid.
  */
 bool
-checkBounds(int amount, int fracBits, int expBits){
-  //program takes in 3 arguments and an a.out = 4 arguments  
-  if(amount != 4){
-    printf("ERROR: you didn't enter the right amount of arguments.\n");
-    printf("Here are the three arguments: \n"); 
-    printf("1. number of fraction bits (between 2 and 10)\n");
-    printf("2. number of exponent bits (between 3 and 5)\n");
-    printf("3. the hexadecimal representation of your number.\n");
-    printf("Quitting program.\n");
-    return false;
-  }
+checkBounds(int fracBits, int expBits){
 
   //bound checking fraction bits:
   if(fracBits < 2 || fracBits > 10){ 
@@ -76,7 +77,7 @@ checkBounds(int amount, int fracBits, int expBits){
    it into an IEEE floating point number.
  */
 void
-convert(int fracBits, int expBits, char* hexNum){
+convert(int fracBits, int expBits, int hexNum){
   
   
 }
